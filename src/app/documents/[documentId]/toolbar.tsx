@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
-import { LucideIcon, Undo2Icon , Redo2Icon , PrinterIcon ,SpellCheckIcon , BoldIcon , ItalicIcon , UnderlineIcon , MessageSquarePlusIcon , ListTodoIcon , RemoveFormattingIcon, ChevronDownIcon, HighlighterIcon, Link2Icon, ImageIcon, SearchIcon, UploadIcon, AlignLeftIcon, icons, AlignCenterIcon , AlignRightIcon, AlignJustifyIcon } from "lucide-react";
+import { LucideIcon, Undo2Icon , Redo2Icon , PrinterIcon ,SpellCheckIcon , BoldIcon , ItalicIcon , UnderlineIcon , MessageSquarePlusIcon , ListTodoIcon , RemoveFormattingIcon, ChevronDownIcon, HighlighterIcon, Link2Icon, ImageIcon, SearchIcon, UploadIcon, AlignLeftIcon, icons, AlignCenterIcon , AlignRightIcon, AlignJustifyIcon, ListIcon, EarIcon, ListOrderedIcon } from "lucide-react";
 import { useEditorStore } from "@/store/use-editor-store";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -18,6 +18,56 @@ import {
 
 import { Input } from "@/components/ui/input";
 import {Button } from "@/components/ui/button";
+
+
+const ListButton = () => {
+    const { editor } = useEditorStore();
+    
+    console.log("Editor Instance:", editor); // Debugging Log
+
+    const lists = [
+        {
+            label : "Button List",
+            icon : ListIcon, 
+            isActive: () => editor?.isActive("bulletList"),
+            onClick: () => editor?.chain().focus().toggleBulletList().run(),
+        },
+        {
+            label : "Ordered List",
+            icon : ListOrderedIcon,
+            isActive: () => editor?.isActive("orderedList"),
+            onClick: () => editor?.chain().focus().toggleOrderedList().run(),
+        }
+    ]
+
+    if (!editor) return null; // Prevents crashes if editor is undefined
+
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <button className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
+                    <ListIcon className="size-4" />
+                </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="p-1 flex flex-col gap-y-1">
+                {lists.map(({ label , icon: Icon, onClick , isActive }) => (
+                    <button
+                        key={label}
+                        onClick={onClick}
+                        className={cn(
+                            "flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80",
+                            isActive() && "bg-neutral-200/80"
+                        )}
+                    >
+                        <Icon className="size-4"/>
+                        <span className="text-sm">{label}</span>
+                    </button>
+                ))}
+            </DropdownMenuContent>
+        </DropdownMenu>
+    );
+};
+
 
 const AlignButton = () => {
     const { editor } = useEditorStore();
@@ -50,8 +100,8 @@ const AlignButton = () => {
                             editor?.isActive("textAlign", value) && "bg-neutral-200/80"
                         )}
                     >
-                        <Icon />
-                        <span>{label}</span>
+                        <Icon className="size-4"/>
+                        <span className="text-sm">{label}</span>
                     </button>
                 ))}
             </DropdownMenuContent>
@@ -492,6 +542,8 @@ export const Toolbar = () => {
             <ImageButton />
 
             <AlignButton />
+
+            <ListButton />
 
             {sections[2].map((item) => {
                 return <ToolbarButton key={item.label} {...item} />

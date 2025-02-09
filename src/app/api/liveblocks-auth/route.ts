@@ -1,7 +1,6 @@
 import {Liveblocks} from "@liveblocks/node"
 import { ConvexHttpClient } from "convex/browser"
 import { auth , currentUser } from "@clerk/nextjs/server"
-import { PocketKnife } from "lucide-react"
 import { api } from "../../../../convex/_generated/api"
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!)
@@ -37,7 +36,7 @@ export async function POST(req : Request) {
 
     const session = liveblocks.prepareSession(user.id , {
         userInfo: {
-            name : user.fullName ?? "Anonymous",
+            name : user.fullName ?? user.primaryEmailAddress?.emailAddress ?? "Anonymous" ,
             avatar: user.imageUrl,
         }
     })

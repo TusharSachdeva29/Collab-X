@@ -10,6 +10,8 @@ declare global {
 
     // The Storage tree for the room, for useMutation, useStorage, etc.
     Storage: {
+      leftMargin : number
+      rightMargin : number
       // Example, a conflict-free list
       // animals: LiveList<string>;
     };

@@ -8,10 +8,9 @@ interface DocumentIdPageProps {
     params: Promise<{ documentId: string }>
 }
 
-
-
 const DocumentIdPage = async ({params}: DocumentIdPageProps) => {
     // const documentId = params.documentId
+
 
     const { documentId } = await params
 

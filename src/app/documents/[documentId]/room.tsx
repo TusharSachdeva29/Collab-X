@@ -1,19 +1,18 @@
 "use client";
 
-import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
+import { ReactNode, useEffect, useMemo, useState } from "react";
 import {
   LiveblocksProvider,
   RoomProvider,
   ClientSideSuspense,
 } from "@liveblocks/react/suspense";
-import { useSearchParam } from "@/hooks/use-search-param";
 import { useParams } from "next/navigation";
 import { FullscreenLoader } from "@/components/ui/fullscreen-loader";
 import { getUsers , getDocuments } from "./actions";
 import { toast } from "sonner";
 import { Id } from "../../../../convex/_generated/dataModel";
 
-type User = {id : string; name : string; avatar : string}
+type User = {id : string; name : string; avatar : string , color : string}
 
 export function Room({ children }: { children: ReactNode }) {
   const params = useParams()

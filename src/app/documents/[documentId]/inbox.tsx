@@ -9,7 +9,6 @@ import {
     DropdownMenuTrigger,  
   } from "@/components/ui/dropdown-menu";  
   import { Button } from "@/components/ui/button"
-import { space } from "postcss/lib/list"
 import { Separator } from "@/components/ui/separator"
 
 export const Inbox = () => {

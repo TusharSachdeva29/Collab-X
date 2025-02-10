@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
-import { LucideIcon, Undo2Icon , Redo2Icon , PrinterIcon ,SpellCheckIcon , BoldIcon , ItalicIcon , UnderlineIcon , MessageSquarePlusIcon , ListTodoIcon , RemoveFormattingIcon, ChevronDownIcon, HighlighterIcon, Link2Icon, ImageIcon, SearchIcon, UploadIcon, AlignLeftIcon, icons, AlignCenterIcon , AlignRightIcon, AlignJustifyIcon, ListIcon, EarIcon, MinusIcon , ListOrderedIcon, PlusIcon, ListCollapseIcon } from "lucide-react";
+import { LucideIcon, Undo2Icon , Redo2Icon , PrinterIcon ,SpellCheckIcon , BoldIcon , ItalicIcon , UnderlineIcon , MessageSquarePlusIcon , ListTodoIcon , RemoveFormattingIcon, ChevronDownIcon, HighlighterIcon, Link2Icon, ImageIcon, SearchIcon, UploadIcon, AlignLeftIcon,  AlignCenterIcon , AlignRightIcon, AlignJustifyIcon, ListIcon, MinusIcon , ListOrderedIcon, PlusIcon, ListCollapseIcon } from "lucide-react";
 import { useEditorStore } from "@/store/use-editor-store";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -23,7 +23,7 @@ import {Button } from "@/components/ui/button";
 const LineHeightButton = () => {
     const { editor } = useEditorStore();
     
-    console.log("Editor Instance:", editor); // Debugging Log
+    // console.log("Editor Instance:", editor); // Debugging Log
 
     const lineHeights = [
         {label : "Default" , value : "normal"},
@@ -146,7 +146,7 @@ const FontSizeButton = () => {
 const ListButton = () => {
     const { editor } = useEditorStore();
     
-    console.log("Editor Instance:", editor); // Debugging Log
+    // console.log("Editor Instance:", editor); // Debugging Log
 
     const lists = [
         {
@@ -195,7 +195,7 @@ const ListButton = () => {
 const AlignButton = () => {
     const { editor } = useEditorStore();
     
-    console.log("Editor Instance:", editor); // Debugging Log
+    // console.log("Editor Instance:", editor); // Debugging Log
 
     const alignments = [
         { label: "Align Left", value: "left", icon: AlignLeftIcon },
@@ -328,9 +328,7 @@ const LinkButton = () => {
                 setValue(editor?.getAttributes("link").href || "");
             }
         }}>
-            <DropdownMenuTrigger 
-            
-             asChild>
+            <DropdownMenuTrigger asChild>
                 <button className={cn(
                     "h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
                 )}>
@@ -398,17 +396,13 @@ const TextColorButton = () => {
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <button className={cn(
-                    "h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
+            <DropdownMenuTrigger className={cn(
+                "h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
                 )}>
-                    <span className="text-xs">
-                        A
-                    </span>
-                    <div className="h-0.5 w-full" style={{backgroundColor : value}} />
-                    
-                </button>
+                <span className="text-xs">A</span>
+                <div className="h-0.5 w-full" style={{ backgroundColor: value }} />
             </DropdownMenuTrigger>
+
             <DropdownMenuContent className="p-0">
                 <SketchPicker color={value}
                 onChange={onChange}
@@ -431,16 +425,20 @@ const FontFamilyButton = () => {
     return (
         <DropdownMenu>
 
-            <DropdownMenuTrigger asChild>
-                <button className={cn(
-                    "h-7 w-[120px] shrink-0 flex items-center justify-between rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
-                )}>
-                    <span className="truncate">
-                        {editor?.getAttributes("textStyle").fontFamily || "Arial"}
-                    </span>
-                    <ChevronDownIcon className="ml-2 size-4 shrink-0" />
-                </button>
-            </DropdownMenuTrigger>
+<DropdownMenuTrigger asChild>
+  <div
+    role="button"
+    tabIndex={0}
+    className={cn(
+      "h-7 w-[120px] shrink-0 flex items-center justify-between rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm cursor-pointer"
+    )}
+  >
+    <span className="truncate">
+      {editor?.getAttributes("textStyle").fontFamily || "Arial"}
+    </span>
+    <ChevronDownIcon className="ml-2 size-4 shrink-0" />
+  </div>
+</DropdownMenuTrigger>
 
             <DropdownMenuContent className="p-1 flex flex-col gap-y-1">
                 {fonts.map(({ label,value }) => (
@@ -486,17 +484,20 @@ const HeadingLevelButton = () => {
     }
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <button className={cn(
-                    "h-7 min-w-7 shrink-0 flex items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
-                )}>
-                    <span className="truncate">
-                        {getCurrentHeading()}
-                        {editor?.getAttributes("textStyle").fontFamily || "Arial"}
-                    </span>
-                    <ChevronDownIcon className="ml-2 size-4 shrink-0" />
-                </button>
-            </DropdownMenuTrigger>
+<DropdownMenuTrigger asChild>
+  <div
+    role="button"
+    tabIndex={0}
+    className={cn(
+      "h-7 min-w-7 shrink-0 flex items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm cursor-pointer"
+    )}
+  >
+    <span className="truncate">
+      {getCurrentHeading()} {editor?.getAttributes("textStyle").fontFamily || "Arial"}
+    </span>
+    <ChevronDownIcon className="ml-2 size-4 shrink-0" />
+  </div>
+</DropdownMenuTrigger>
             <DropdownMenuContent className="p-1 flex flex-col gap-y-1">
                 {headings.map(({label , value , fontSize}) => (
                     <button
@@ -552,7 +553,7 @@ const ToolbarButton = ({
 export const Toolbar = () => {
     const { editor } = useEditorStore()
 
-    console.log("toolbar editor:" , {editor})
+    // console.log("toolbar editor:" , {editor})
 
     const sections: {label : string; icon: LucideIcon;
         onClick: () => void;

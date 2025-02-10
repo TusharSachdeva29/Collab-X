@@ -1,5 +1,5 @@
 import { Extension } from "@tiptap/react";
-import TextStyle from "@tiptap/extension-text-style";
+
 
 
 declare module "@tiptap/react" {

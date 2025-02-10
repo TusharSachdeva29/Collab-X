@@ -5,7 +5,7 @@ interface FullscreenLoaderProps {
     className? : string;
 }
 
-export const FullscreenLoader = ({ label , className } : FullscreenLoaderProps) => {
+export const FullscreenLoader = ({ label } : FullscreenLoaderProps) => {
     return (
         <div className="min-h-screen flex flex-col items-center justify-centergap-2">
 
